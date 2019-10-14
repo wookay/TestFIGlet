@@ -2,26 +2,12 @@
 language: julia
 os:
   - linux
-  - osx
 julia:
-  - 1.0
-  - nightly
-matrix:
-  allow_failures:
-    - julia: nightly
-  fast_finish: true
+  - 1.1
 notifications:
   email: false
-after_success:
-  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
-  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
-jobs:
-  include:
-    - stage: Documentation
-      julia: nightly
-      script: julia --project=docs -e '
-          using Pkg;
-          Pkg.develop(PackageSpec(path=pwd()));
-          Pkg.instantiate();
-          include("docs/make.jl");'
-      after_success: skip
+script:
+  - cd ..
+  - cp -r TestFIGlet FIGlet
+  - cd FIGlet
+  - julia --color=yes --project -e 'using Pkg; Pkg.instantiate(); Pkg.build(); Pkg.test()'
