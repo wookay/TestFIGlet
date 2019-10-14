@@ -10,4 +10,4 @@ script:
   - cd ..
   - cp -r TestFIGlet FIGlet
   - cd FIGlet
-  - julia --color=yes --project -e 'using Pkg; Pkg.instantiate(); Pkg.build(); Pkg.test()'
+  - julia --color=yes --project -e 'using Pkg; Pkg.build(); Pkg.test()'
